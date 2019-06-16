@@ -1,8 +1,8 @@
 import React from "react";
 
-const ListComment = () => (
-  <div>
-    <div>List Comment</div>
+const ListComment = props => (
+  <div className="listComment">
+    <div>{props.listText}</div>
   </div>
 );
 export default ListComment;

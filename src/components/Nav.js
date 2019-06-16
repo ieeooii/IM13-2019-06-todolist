@@ -1,9 +1,9 @@
 import React from "react";
 import Bar from "./Bar";
 
-const Nav = () => (
+const Nav = props => (
   <div>
-    <Bar />
+    <Bar enter={props.enter} listText={props.listText} />
   </div>
 );
 
