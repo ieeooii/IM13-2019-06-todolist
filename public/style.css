@@ -1,0 +1,38 @@
+body {
+  margin: 0%;
+}
+
+#container {
+  background-color: aliceblue;
+  position: absolute;
+  width: 8%;
+  height: 100%;
+  padding: 3%;
+}
+
+#barContainer {
+  background-color: antiquewhite;
+  position: relative;
+  width: 80%;
+  height: 10%;
+  float: right;
+  padding: 3%;
+}
+
+#listContainer {
+  background-color: ivory;
+  position: relative;
+  float: right;
+  width: 54%;
+  height: 83.3%;
+  padding: 3%;
+}
+
+#memoContainer {
+  background-color: ghostwhite;
+  position: relative;
+  float: right;
+  width: 20%;
+  height: 83.3%;
+  padding: 3%;
+}
