@@ -3,7 +3,7 @@ import Bar from "./Bar";
 
 const Nav = props => (
   <div>
-    <Bar enter={props.enter} listText={props.listText} />
+    <Bar enter={props.enter} titleT={props.titleT} />
   </div>
 );
 

@@ -63,15 +63,26 @@ class App extends React.Component {
     });
   }
 
-  render() {
-    let d = window.localStorage[this.state.titleEl];
+  titleBoolean() {
     if (this.state.titleEl.length > 0) {
-      let i = JSON.parse(d);
-      console.log(i);
+      return this.state.titleEl;
+    } else {
+      return "";
     }
-    console.log(window.localStorage);
+  }
+
+  render() {
+    // let titleKey = window.localStorage[this.state.titleEl];
+    // let obj = JSON.parse(titleKey);
+    // let d = window.localStorage[this.state.titleEl];
+    // if (this.state.titleEl.length > 0) {
+    //   let i = JSON.parse(d);
+    //   console.log(i);
+    // }
+    // console.log(window.localStorage);
     // console.log(this.state.titleEl);
     // console.log("list: " + this.state.list, "     memo: " + this.state.memo);
+    // console.log(this.state.local[Object.keys(this.state.local)[0]]);
     return (
       <div id="aollBox">
         <div id="container">
@@ -82,9 +93,16 @@ class App extends React.Component {
           />
         </div>
         <div id="barContainer">
-          <Nav enter={this.handleKeyUp.bind(this)} listText={this.state.list} />
+          <Nav
+            enter={this.handleKeyUp.bind(this)}
+            titleT={
+              this.state.titleEl.length > 0 ? this.state.titleEl : "To Do List"
+            }
+          />
         </div>
         <div>
+          {/* {obj["memo"].map(el => (
+            ))} */}
           <Memo memoText={this.state.memo} />
           <Todolist listText={this.state.list} />
         </div>

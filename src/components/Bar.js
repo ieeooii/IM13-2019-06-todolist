@@ -2,7 +2,8 @@ import React from "react";
 
 const Bar = props => (
   <div>
-    <div id="title">To Do List</div>
+    <div id="title">{props.titleT}</div>
+    {console.log(props.titleT)}
     <span>
       <input
         type="text"
