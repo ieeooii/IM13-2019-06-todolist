@@ -18,43 +18,47 @@ class App extends React.Component {
     };
   }
 
+  handlePrompt() {
+    let a = prompt("Write a Title");
+    window.localStorage.setItem(a, JSON.stringify({ list: [], memo: [] }));
+    this.setState({
+      title: a
+    });
+    // let a = prompt("Write a Title");
+    // let arr = JSON.parse(window.localStorage["name"]);
+    // window.localStorage.setItem(a, JSON.stringify({ list: [], memo: [] }));
+    // if (this.state.title.length === 0) {
+    //   window.localStorage.setItem("name", JSON.stringify([a]));
+    // } else if (this.state.title.length > 0) {
+    //   console.log(arr);
+    //   arr.push(a);
+    //   window.localStorage.setItem("name", JSON.stringify(arr));
+    // }
+    // this.setState({
+    //   title: arr
+    // });
+  }
+
   handleKeyUp(event) {
     const { value, id } = event.target;
     if (event.keyCode === 13 && value !== "") {
-      let titleKey = window.localStorage[this.state.titleEl];
+      let titleKey = this.state.local[this.state.titleEl];
       let obj = JSON.parse(titleKey);
       if (id === "listBar" && this.state.titleEl.length > 0) {
         obj["list"].push(value);
+        window.localStorage.setItem(this.state.titleEl, JSON.stringify(obj));
         this.setState({
-          list: this.state.list.concat(value),
-          local: window.localStorage.setItem(
-            this.state.titleEl,
-            JSON.stringify(obj)
-          )
+          list: this.state.list.concat(value)
         });
       } else if (id === "memoBar" && this.state.titleEl.length > 0) {
         obj["memo"].push(value);
+        window.localStorage.setItem(this.state.titleEl, JSON.stringify(obj));
         this.setState({
-          memo: this.state.memo.concat(value),
-          local: window.localStorage.setItem(
-            this.state.titleEl,
-            JSON.stringify(obj)
-          )
+          memo: this.state.memo.concat(value)
         });
       }
       event.target.value = "";
     }
-  }
-
-  handlePrompt() {
-    let a = prompt("Write a Title");
-    this.setState({
-      title: a,
-      local: window.localStorage.setItem(
-        a,
-        JSON.stringify({ list: [], memo: [] })
-      )
-    });
   }
 
   pushLocal(title) {
@@ -63,26 +67,7 @@ class App extends React.Component {
     });
   }
 
-  titleBoolean() {
-    if (this.state.titleEl.length > 0) {
-      return this.state.titleEl;
-    } else {
-      return "";
-    }
-  }
-
   render() {
-    // let titleKey = window.localStorage[this.state.titleEl];
-    // let obj = JSON.parse(titleKey);
-    // let d = window.localStorage[this.state.titleEl];
-    // if (this.state.titleEl.length > 0) {
-    //   let i = JSON.parse(d);
-    //   console.log(i);
-    // }
-    // console.log(window.localStorage);
-    // console.log(this.state.titleEl);
-    // console.log("list: " + this.state.list, "     memo: " + this.state.memo);
-    // console.log(this.state.local[Object.keys(this.state.local)[0]]);
     return (
       <div id="aollBox">
         <div id="container">
@@ -101,10 +86,8 @@ class App extends React.Component {
           />
         </div>
         <div>
-          {/* {obj["memo"].map(el => (
-            ))} */}
-          <Memo memoText={this.state.memo} />
-          <Todolist listText={this.state.list} />
+          <Memo titleT={this.state.titleEl} />
+          <Todolist titleT={this.state.titleEl} />
         </div>
       </div>
     );
