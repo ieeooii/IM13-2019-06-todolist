@@ -1,7 +1,13 @@
 import React from "react";
 
 const Title = props => (
-  <div>
+  <div
+    onClick={
+      props.clickEvent !== undefined
+        ? props.clickEvent.bind(this, props.title)
+        : null
+    }
+  >
     <div>{props.title}</div>
   </div>
 );

@@ -10,8 +10,9 @@ const Category = props => (
     Add List
     <div className="listTitle">
       {props.title.map((el, indx) => (
-        <Title title={el} key={indx} />
+        <Title title={el} key={indx} clickEvent={props.clickEvent} />
       ))}
+      {console.log(props.title)}
     </div>
   </div>
 );

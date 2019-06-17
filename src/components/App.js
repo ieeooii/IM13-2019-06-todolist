@@ -11,43 +11,74 @@ class App extends React.Component {
     super();
     this.state = {
       title: [],
+      titleEl: "",
       list: [],
       memo: [],
       local: window.localStorage
     };
   }
 
-  handlePrompt() {
-    let a = prompt("Write a Title");
-    this.setState({
-      title: this.state.title.concat(a)
-    });
-  }
-
   handleKeyUp(event) {
-    let { value, id } = event.target;
+    const { value, id } = event.target;
     if (event.keyCode === 13 && value !== "") {
-      if (id === "listBar") {
+      let titleKey = window.localStorage[this.state.titleEl];
+      let obj = JSON.parse(titleKey);
+      if (id === "listBar" && this.state.titleEl.length > 0) {
+        obj["list"].push(value);
         this.setState({
-          list: this.state.list.concat(value)
+          list: this.state.list.concat(value),
+          local: window.localStorage.setItem(
+            this.state.titleEl,
+            JSON.stringify(obj)
+          )
         });
-      } else if (id === "memoBar") {
+      } else if (id === "memoBar" && this.state.titleEl.length > 0) {
+        obj["memo"].push(value);
         this.setState({
-          memo: this.state.memo.concat(value)
+          memo: this.state.memo.concat(value),
+          local: window.localStorage.setItem(
+            this.state.titleEl,
+            JSON.stringify(obj)
+          )
         });
       }
       event.target.value = "";
     }
   }
 
+  handlePrompt() {
+    let a = prompt("Write a Title");
+    this.setState({
+      title: a,
+      local: window.localStorage.setItem(
+        a,
+        JSON.stringify({ list: [], memo: [] })
+      )
+    });
+  }
+
+  pushLocal(title) {
+    this.setState({
+      titleEl: title
+    });
+  }
+
   render() {
-    console.log("list: " + this.state.list, "     memo: " + this.state.memo);
+    let d = window.localStorage[this.state.titleEl];
+    if (this.state.titleEl.length > 0) {
+      let i = JSON.parse(d);
+      console.log(i);
+    }
+    console.log(window.localStorage);
+    // console.log(this.state.titleEl);
+    // console.log("list: " + this.state.list, "     memo: " + this.state.memo);
     return (
       <div id="aollBox">
         <div id="container">
           <Category
             write={this.handlePrompt.bind(this)}
-            title={this.state.title}
+            title={Object.keys(window.localStorage)}
+            clickEvent={this.pushLocal.bind(this)}
           />
         </div>
         <div id="barContainer">
